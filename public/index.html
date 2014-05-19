@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="ddapp" ng-controller="Converter as c">
+<head>
+    <title>Decimal Degrees</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="libs/angular.min.js"></script>
+    <script src="libs/jquery.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body>
+<div>
+    <p>Some instructions...</p>
+</div>
+<div >
+    <form>
+        <textarea id="entry" type="text" rows="5" placeholder="Enter your coordinates here..."></textarea>
+    </form>
+    <div>
+        <span>{{c.outputName}}</span>
+        <ul id="output">
+            <li class="output_item">0.0 0.0</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
