@@ -7,13 +7,14 @@
  */
 
 function looksLikeDegreesMinutesSeconds(input) {
-    return input.match(/((\d+)\s(\d+)\s(\d+\.?\d?)N?)\s*((\d+)\s(\d+)\s(\d+\.?\d?)W?)/);
+    return input.match(/((-?\d+)\s(\d+)\s(\d+\.?\d?)N?)\s*((-?\d+)\s(\d+)\s(\d+\.?\d?)W?)/);
 }
 
 function convert(input) {
     var tokens = looksLikeDegreesMinutesSeconds(input);
+    console.log(tokens);
     if (tokens)
-        return parseFloat(tokens[0]).toString() + ".0, 0.0";
+        return parseInt(tokens[1]).toFixed(1) + ", " + parseInt(tokens[5]).toFixed(1);
     return "";
 }
 
@@ -31,5 +32,10 @@ describe("Converting coordinates to Decimal Degrees",function(){
     it("Degrees Minutes Seconds", function(){
         expectConversion("0 0 0.0N 0 0 0.0W", "0.0, 0.0");
         expectConversion("1 0 0.0N 0 0 0.0W", "1.0, 0.0");
+        expectConversion("1 0 0.0N 1 0 0.0W", "1.0, 1.0");
+        expectConversion("90 0 0.0N 180 0 0.0W", "90.0, 180.0");
+        expectConversion("90 0 0.0N 360 0 0.0W", "90.0, 360.0");
+        expectConversion("-90 0 0.0N 180 0 0.0W", "-90.0, 180.0");
+        expectConversion("90 0 0.0N -180 0 0.0W", "90.0, -180.0");
     });
 });
