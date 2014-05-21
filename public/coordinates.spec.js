@@ -11,10 +11,17 @@ function convert(input) {
 }
 
 describe("Converting coordinates to Decimal Degrees",function(){
+    function expectConversion(input, expected) {
+        expect(convert(input)).toEqual(expected);
+    }
+
     it("Empty String", function(){
-        expect(convert("")).toEqual("0.0, 0.0");
+        expectConversion("", "0.0, 0.0");
+    });
+    it("Malformed Input", function(){
+        expectConversion("jand7s1&* ksdj", "0.0, 0.0");
     });
     it("Degrees Minutes Seconds", function(){
-        expect(convert("0 0 0.0N 0 0 0.0W")).toEqual("0.0, 0.0");
+        expectConversion("0 0 0.0N 0 0 0.0W", "0.0, 0.0");
     });
 });
