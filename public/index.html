@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="ddapp" ng-controller="Converter as c">
+<html ng-app="ddapp" ng-controller="ConverterCtrl as conv">
 <head>
     <title>Decimal Degrees</title>
     <link rel="stylesheet" href="style.css">
@@ -13,12 +13,12 @@
 </div>
 <div >
     <form>
-        <textarea id="entry" type="text" rows="5" placeholder="Enter your coordinates here..."></textarea>
+        <textarea id="entry" type="text" rows="5" placeholder="Enter your coordinates here..." ng-model="conv.input"></textarea>
     </form>
     <div>
-        <span>{{c.outputName}}</span>
+        <span>{{conv.outputName}}</span>
         <ul id="output">
-            <li class="output_item">0.0 0.0</li>
+            <li class="output_item" ng-repeat="coord in conv.converted">{{ coord }}</li>
         </ul>
     </div>
 </div>
