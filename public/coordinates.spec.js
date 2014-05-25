@@ -40,11 +40,14 @@ describe("Converting coordinates to Decimal Degrees",function(){
         describe("general formatting",function(){
             itIsAnExpectedConversion("0 0 0.0N 0 0 0.0W", "0.0, 0.0");
             itIsAnExpectedConversion("0 0 0.0 0 0 0.0", "0.0, 0.0");
+            itIsAnExpectedConversion("0 0 0.0N, 0 0 0.0W", "0.0, 0.0");
             itIsAnExpectedConversion("0 0 0.0, 0 0 0.0", "0.0, 0.0");
         });
 
         itIsAnExpectedConversion("1 0 0.0N 0 0 0.0W", "1.0, 0.0");
         itIsAnExpectedConversion("1 0 0.0N 1 0 0.0W", "1.0, 1.0");
+        itIsAnExpectedConversion("1 1 0.0N 0 0 0.0W", "1.01667, 0.0");
+
         itIsAnExpectedConversion("90 0 0.0N 180 0 0.0W", "90.0, 180.0");
         itIsAnExpectedConversion("90 0 0.0N 360 0 0.0W", "90.0, 360.0");
         itIsAnExpectedConversion("-90 0 0.0N 180 0 0.0W", "-90.0, 180.0");
