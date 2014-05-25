@@ -23,19 +23,26 @@ describe("Converting coordinates to Decimal Degrees",function(){
         expect(convert(input)).toEqual(expected);
     }
 
+    function itIsAnExpectedConversion(input, expected) {
+        it(input, function(){
+            expectConversion(input, expected);
+        });
+    }
+
     it("Empty String", function(){
         expectConversion("", "");
     });
     it("Malformed Input", function(){
         expectConversion("jand7s1&* ksdj", "");
     });
-    it("Degrees Minutes Seconds", function(){
-        expectConversion("0 0 0.0N 0 0 0.0W", "0.0, 0.0");
-        expectConversion("1 0 0.0N 0 0 0.0W", "1.0, 0.0");
-        expectConversion("1 0 0.0N 1 0 0.0W", "1.0, 1.0");
-        expectConversion("90 0 0.0N 180 0 0.0W", "90.0, 180.0");
-        expectConversion("90 0 0.0N 360 0 0.0W", "90.0, 360.0");
-        expectConversion("-90 0 0.0N 180 0 0.0W", "-90.0, 180.0");
-        expectConversion("90 0 0.0N -180 0 0.0W", "90.0, -180.0");
+
+    describe("Degrees Minutes Seconds", function(){
+        itIsAnExpectedConversion("0 0 0.0N 0 0 0.0W", "0.0, 0.0");
+        itIsAnExpectedConversion("1 0 0.0N 0 0 0.0W", "1.0, 0.0");
+        itIsAnExpectedConversion("1 0 0.0N 1 0 0.0W", "1.0, 1.0");
+        itIsAnExpectedConversion("90 0 0.0N 180 0 0.0W", "90.0, 180.0");
+        itIsAnExpectedConversion("90 0 0.0N 360 0 0.0W", "90.0, 360.0");
+        itIsAnExpectedConversion("-90 0 0.0N 180 0 0.0W", "-90.0, 180.0");
+        itIsAnExpectedConversion("90 0 0.0N -180 0 0.0W", "90.0, -180.0");
     });
 });
