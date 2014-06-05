@@ -10,8 +10,8 @@ function looksLikeDegreesMinutesSeconds(input) {
     return input.match(/((-?\d+)\s(\d+)\s(\d+\.?\d?)N?)[,\s]+((-?\d+)\s(\d+)\s(\d+\.?\d?)W?)/);
 }
 
-function DecimalDegrees(degrees, minutes) {
-        var dd = parseInt(degrees) + (parseInt(minutes) / 60);
+function DecimalDegrees(degrees, minutes, seconds) {
+        var dd = parseInt(degrees) + (parseInt(minutes) / 60) + (parseInt(seconds) / 360);
         var fix = 1;
         if (minutes > 0) fix = 5;
         return { toString: function() { return dd.toFixed(fix); } };
@@ -20,9 +20,9 @@ function DecimalDegrees(degrees, minutes) {
 function convert(input) {
     var tokens = looksLikeDegreesMinutesSeconds(input);
     if (tokens) {
-        var lat = DecimalDegrees(tokens[2], tokens[3]);
-        var long = DecimalDegrees(tokens[6], tokens[7]);
-        return lat.toString() + ", " + long.toString();
+        var lat = DecimalDegrees(tokens[2], tokens[3], tokens[4]);
+        var lng = DecimalDegrees(tokens[6], tokens[7], 0);
+        return lat.toString() + ", " + lng.toString();
     }
     return "";
 }
@@ -56,6 +56,7 @@ describe("Converting coordinates to Decimal Degrees",function(){
         itIsAnExpectedConversion("1 0 0.0N 0 0 0.0W", "1.0, 0.0");
         itIsAnExpectedConversion("1 0 0.0N 1 0 0.0W", "1.0, 1.0");
         itIsAnExpectedConversion("1 1 0.0N 0 0 0.0W", "1.01667, 0.0");
+        itIsAnExpectedConversion("1 1 1.0N 0 0 0.0W", "1.01944, 0.0");
         itIsAnExpectedConversion("0 0 0.0N 1 1 0.0W", "0.0, 1.01667");
 
         itIsAnExpectedConversion("90 0 0.0N 180 0 0.0W", "90.0, 180.0");
