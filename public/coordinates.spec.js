@@ -21,7 +21,8 @@ function convert(input) {
     var tokens = looksLikeDegreesMinutesSeconds(input);
     if (tokens) {
         var lat = DecimalDegrees(tokens[2], tokens[3]);
-        return lat.toString() + ", " + parseInt(tokens[6]).toFixed(1);
+        var long = DecimalDegrees(tokens[6], tokens[7]);
+        return lat.toString() + ", " + long.toString();
     }
     return "";
 }
