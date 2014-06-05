@@ -11,7 +11,7 @@ function looksLikeDegreesMinutesSeconds(input) {
 }
 
 function dms2dd(degrees, minutes, seconds) {
-    return parseInt(degrees) + (parseInt(minutes) / 60) + (parseInt(seconds) / 360);
+    return parseInt(degrees) + (parseInt(minutes) / 60) + (parseFloat(seconds) / 360);
 }
 
 function DecimalDegrees(value) {
@@ -64,7 +64,8 @@ describe("Converting coordinates to Decimal Degrees",function(){
         itIsAnExpectedConversion("1 1 1.0N 0 0 0.0W", "1.01944, 0.0");
         itIsAnExpectedConversion("0 0 0.0N 1 0 1.0W", "0.0, 1.00278");
         itIsAnExpectedConversion("0 0 0.0N 1 1 0.0W", "0.0, 1.01667");
-
+        itIsAnExpectedConversion("0 0 0.1N 0 0 0.0W", "0.00028, 0.0");
+        
         itIsAnExpectedConversion("90 0 0.0N 180 0 0.0W", "90.0, 180.0");
         itIsAnExpectedConversion("90 0 0.0N 360 0 0.0W", "90.0, 360.0");
         itIsAnExpectedConversion("-90 0 0.0N 180 0 0.0W", "-90.0, 180.0");
