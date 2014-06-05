@@ -10,19 +10,19 @@ function looksLikeDegreesMinutesSeconds(input) {
     return input.match(/((-?\d+)\s(\d+)\s(\d+\.?\d?)N?)[,\s]+((-?\d+)\s(\d+)\s(\d+\.?\d?)W?)/);
 }
 
+function DecimalDegrees(degrees, minutes) {
+        var dd = parseInt(degrees) + (parseInt(minutes) / 60);
+        var fix = 1;
+        if (minutes > 0) fix = 5;
+        return { toString: function() { return dd.toFixed(fix); } };
+}
+
 function convert(input) {
     var tokens = looksLikeDegreesMinutesSeconds(input);
     console.log(tokens);
     if (tokens) {
-        var lat = {degrees: parseInt(tokens[2]),
-                    minutes: parseInt(tokens[3]),
-                    toString: function(){
-                        var dd = this.degrees + (this.minutes / 60);
-                        if (this.minutes === 0)
-                            return this.degrees.toFixed(1);
-                        else
-                            return dd.toFixed(5);
-                    }};
+        var lat = DecimalDegrees(tokens[2], tokens[3]);
+        console.log(lat, lat.toString());
         return lat.toString() + ", " + parseInt(tokens[6]).toFixed(1);
     }
     return "";
