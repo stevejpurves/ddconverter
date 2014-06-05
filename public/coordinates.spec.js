@@ -13,8 +13,18 @@ function looksLikeDegreesMinutesSeconds(input) {
 function convert(input) {
     var tokens = looksLikeDegreesMinutesSeconds(input);
     console.log(tokens);
-    if (tokens)
-        return parseInt(tokens[1]).toFixed(1) + ", " + parseInt(tokens[5]).toFixed(1);
+    if (tokens) {
+        var lat = {degrees: parseInt(tokens[2]),
+                    minutes: parseInt(tokens[3]),
+                    toString: function(){
+                        var dd = this.degrees + (this.minutes / 60);
+                        if (this.minutes === 0)
+                            return this.degrees.toFixed(1);
+                        else
+                            return dd.toFixed(5);
+                    }};
+        return lat.toString() + ", " + parseInt(tokens[6]).toFixed(1);
+    }
     return "";
 }
 
