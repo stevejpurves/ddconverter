@@ -10,18 +10,22 @@ function looksLikeDegreesMinutesSeconds(input) {
     return input.match(/((-?\d+)\s(\d+)\s(\d+\.?\d?)N?)[,\s]+((-?\d+)\s(\d+)\s(\d+\.?\d?)W?)/);
 }
 
-function DecimalDegrees(degrees, minutes, seconds) {
-        var dd = parseInt(degrees) + (parseInt(minutes) / 60) + (parseInt(seconds) / 360);
+function dms2dd(degrees, minutes, seconds) {
+    return parseInt(degrees) + (parseInt(minutes) / 60) + (parseInt(seconds) / 360);
+}
+
+function DecimalDegrees(value) {
+        var dd = value;
         var fix = 1;
-        if (minutes > 0 || seconds > 0) fix = 5;
+        if (value - Math.floor(value) > 0) fix = 5;
         return { toString: function() { return dd.toFixed(fix); } };
 }
 
 function convert(input) {
     var tokens = looksLikeDegreesMinutesSeconds(input);
     if (tokens) {
-        var lat = DecimalDegrees(tokens[2], tokens[3], tokens[4]);
-        var lng = DecimalDegrees(tokens[6], tokens[7], tokens[8]);
+        var lat = DecimalDegrees( dms2dd(tokens[2], tokens[3], tokens[4]) );
+        var lng = DecimalDegrees( dms2dd(tokens[6], tokens[7], tokens[8]) );
         return lat.toString() + ", " + lng.toString();
     }
     return "";
