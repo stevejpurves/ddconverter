@@ -11,7 +11,7 @@ function looksLikeDegreesMinutesSeconds(input) {
 }
 
 function dms2dd(degrees, minutes, seconds) {
-    return parseInt(degrees) + (parseInt(minutes) / 60) + (parseFloat(seconds) / 360);
+    return DecimalDegrees( parseInt(degrees) + (parseInt(minutes) / 60) + (parseFloat(seconds) / 360) );
 }
 
 function DecimalDegrees(value) {
@@ -21,12 +21,19 @@ function DecimalDegrees(value) {
         return { toString: function() { return dd.toFixed(fix); } };
 }
 
+function LatLong(lat, lng) {
+    var the_lat = lat;
+    var the_long = lng;
+    return { toString: function(){
+        return the_lat.toString() + ", " + the_long.toString();
+    }};
+}
+
 function convert(input) {
     var tokens = looksLikeDegreesMinutesSeconds(input);
     if (tokens) {
-        var lat = DecimalDegrees( dms2dd(tokens[2], tokens[3], tokens[4]) );
-        var lng = DecimalDegrees( dms2dd(tokens[6], tokens[7], tokens[8]) );
-        return lat.toString() + ", " + lng.toString();
+        var latlong = LatLong( dms2dd(tokens[2], tokens[3], tokens[4]), dms2dd(tokens[6], tokens[7], tokens[8]) );
+        return latlong.toString();
     }
     return "";
 }
@@ -57,15 +64,17 @@ describe("Converting coordinates to Decimal Degrees",function(){
             itIsAnExpectedConversion("0 0 0.0, 0 0 0.0", "0.0, 0.0");
         });
 
-        itIsAnExpectedConversion("1 0 0.0N 0 0 0.0W", "1.0, 0.0");
-        itIsAnExpectedConversion("1 0 0.0N 1 0 0.0W", "1.0, 1.0");
-        itIsAnExpectedConversion("1 1 0.0N 0 0 0.0W", "1.01667, 0.0");
-        itIsAnExpectedConversion("1 0 1.0N 0 0 0.0W", "1.00278, 0.0");
-        itIsAnExpectedConversion("1 1 1.0N 0 0 0.0W", "1.01944, 0.0");
-        itIsAnExpectedConversion("0 0 0.0N 1 0 1.0W", "0.0, 1.00278");
-        itIsAnExpectedConversion("0 0 0.0N 1 1 0.0W", "0.0, 1.01667");
-        itIsAnExpectedConversion("0 0 0.1N 0 0 0.0W", "0.00028, 0.0");
-        
+        describe("Handling each of Degrees, Minutes and Decimal Seconds",function(){
+            itIsAnExpectedConversion("1 0 0.0N 0 0 0.0W", "1.0, 0.0");
+            itIsAnExpectedConversion("1 0 0.0N 1 0 0.0W", "1.0, 1.0");
+            itIsAnExpectedConversion("1 1 0.0N 0 0 0.0W", "1.01667, 0.0");
+            itIsAnExpectedConversion("1 0 1.0N 0 0 0.0W", "1.00278, 0.0");
+            itIsAnExpectedConversion("1 1 1.0N 0 0 0.0W", "1.01944, 0.0");
+            itIsAnExpectedConversion("0 0 0.0N 1 0 1.0W", "0.0, 1.00278");
+            itIsAnExpectedConversion("0 0 0.0N 1 1 0.0W", "0.0, 1.01667");
+            itIsAnExpectedConversion("0 0 0.1N 0 0 0.0W", "0.00028, 0.0");
+        });
+
         itIsAnExpectedConversion("90 0 0.0N 180 0 0.0W", "90.0, 180.0");
         itIsAnExpectedConversion("90 0 0.0N 360 0 0.0W", "90.0, 360.0");
         itIsAnExpectedConversion("-90 0 0.0N 180 0 0.0W", "-90.0, 180.0");
