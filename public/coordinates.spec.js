@@ -7,6 +7,10 @@
  */
 
 function looksLikeDegreesMinutesSeconds(input) {
+    return parseDegreesMinutesSeconds(input) !== null;
+}
+
+function parseDegreesMinutesSeconds(input) {
     return input.match(/((-?\d+)\s(\d+)\s(\d+\.?\d?)([NS]?))[,\s]+((-?\d+)\s(\d+)\s(\d+\.?\d?)([EW]?))/);
 }
 
@@ -36,8 +40,8 @@ function LatLong(lat, lng) {
 }
 
 function convert(input) {
-    var tokens = looksLikeDegreesMinutesSeconds(input);
-    if (tokens) {
+    if (looksLikeDegreesMinutesSeconds(input)) {
+        var tokens = parseDegreesMinutesSeconds(input);
         var latlong = LatLong( dms2dd(tokens[2], tokens[3], tokens[4], tokens[5]), dms2dd(tokens[7], tokens[8], tokens[9], tokens[10]) );
         return latlong.toString();
     }
