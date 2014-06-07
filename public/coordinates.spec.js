@@ -92,9 +92,11 @@ describe("Converting coordinates to Decimal Degrees",function(){
             itIsAnExpectedConversion("0 0 0.0N 181 0 0.0W", "0.0, 179.0");
         });
 
-        itIsAnExpectedConversion("90 0 0.0N 180 0 0.0E", "90.0, 180.0");
-        itIsAnExpectedConversion("90 0 0.0N 360 0 0.0E", "90.0, 0.0");
-        itIsAnExpectedConversion("-90 0 0.0N 180 0 0.0E", "-90.0, 180.0");
-        itIsAnExpectedConversion("90 0 0.0N -180 0 0.0E", "90.0, -180.0");
+        describe("the poles",function(){
+            itIsAnExpectedConversion("90 0 0.0N 180 0 0.0E", "90.0, 180.0");
+            itIsAnExpectedConversion("90 0 0.0N 360 0 0.0E", "90.0, 0.0");
+            itIsAnExpectedConversion("-90 0 0.0N 180 0 0.0E", "-90.0, 180.0");
+            itIsAnExpectedConversion("90 0 0.0N -180 0 0.0E", "90.0, -180.0");
+        });
     });
 });
