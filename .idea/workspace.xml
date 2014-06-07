@@ -40,7 +40,7 @@
       <file leaf-file-name="coordinates.spec.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/coordinates.spec.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="1" selection-start="794" selection-end="794" vertical-scroll-proportion="0.52487135">
+            <state line="23" column="23" selection-start="693" selection-end="693" vertical-scroll-proportion="0.49571183">
               <folding>
                 <element signature="n#!!doc;n#looksLikeDegreesMinutesSeconds#0" expanded="false" />
               </folding>
@@ -484,7 +484,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/coordinates.spec.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="1" selection-start="794" selection-end="794" vertical-scroll-proportion="0.52487135">
+        <state line="23" column="23" selection-start="693" selection-end="693" vertical-scroll-proportion="0.49571183">
           <folding>
             <element signature="n#!!doc;n#looksLikeDegreesMinutesSeconds#0" expanded="false" />
           </folding>

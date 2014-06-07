@@ -12,16 +12,19 @@ function looksLikeDegreesMinutesSeconds(input) {
 
 function dms2dd(degrees, minutes, seconds, letter) {
     var sign = (letter.match(/[SW]/) !== null) ? -1.0 : 1.0;
-    return DecimalDegrees( sign * ( parseInt(degrees) + (parseInt(minutes) / 60) + (parseFloat(seconds) / 360) ) );
+    var value = parseInt(degrees);
+    value += parseInt(minutes) / 60;
+    value += parseFloat(seconds) / 360;
+    return DecimalDegrees( sign * value );
 }
 
 function DecimalDegrees(value) {
-        var dd = value;
-        if (dd > 180)
-            dd -= 360;
-        var fix = 1;
-        if (value - Math.floor(value) > 0) fix = 5;
-        return { toString: function() { return dd.toFixed(fix); } };
+    var dd = value;
+    if (dd > 180) dd -= 360;
+    if (dd < -180) dd += 360;
+    var fix = 1;
+    if (value - Math.floor(value) > 0) fix = 5;
+    return { toString: function() { return dd.toFixed(fix); } };
 }
 
 function LatLong(lat, lng) {
@@ -86,6 +89,7 @@ describe("Converting coordinates to Decimal Degrees",function(){
 
         describe("wrapping on the equator",function(){
             itIsAnExpectedConversion("0 0 0.0N 181 0 0.0E", "0.0, -179.0");
+            itIsAnExpectedConversion("0 0 0.0N 181 0 0.0W", "0.0, 179.0");
         });
 
         itIsAnExpectedConversion("90 0 0.0N 180 0 0.0E", "90.0, 180.0");
