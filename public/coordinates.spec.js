@@ -11,7 +11,7 @@ function looksLikeDegreesMinutesSeconds(input) {
 }
 
 function dms2dd(degrees, minutes, seconds, letter) {
-    var sign = (letter.indexOf("S") > -1.0) || (letter.indexOf("W") > -1.0) ? -1.0 : 1.0;
+    var sign = (letter.match(/[SW]/) !== null) ? -1.0 : 1.0;
     return DecimalDegrees( sign * ( parseInt(degrees) + (parseInt(minutes) / 60) + (parseFloat(seconds) / 360) ) );
 }
 
