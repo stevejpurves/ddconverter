@@ -14,11 +14,11 @@ function parseDegreesMinutesSeconds(input) {
     return input.match(/((-?\d+)\s(\d+)\s(\d+\.?\d?)([NS]?))[,\s]+((-?\d+)\s(\d+)\s(\d+\.?\d?)([EW]?))/);
 }
 
-function dms2dd(degrees, minutes, seconds, letter) {
-    var sign = (letter.match(/[SW]/) !== null) ? -1.0 : 1.0;
-    var value = parseInt(degrees);
-    value += parseInt(minutes) / 60;
-    value += parseFloat(seconds) / 360;
+function dms2dd(tokens) {
+    var value = parseInt(tokens[0]);
+    value += parseInt(tokens[1]) / 60;
+    value += parseFloat(tokens[2]) / 360;
+    var sign = (tokens[3].match(/[SW]/) !== null) ? -1.0 : 1.0;
     return DecimalDegrees( sign * value );
 }
 
@@ -42,7 +42,8 @@ function LatLong(lat, lng) {
 function convert(input) {
     if (looksLikeDegreesMinutesSeconds(input)) {
         var tokens = parseDegreesMinutesSeconds(input);
-        var latlong = LatLong( dms2dd(tokens[2], tokens[3], tokens[4], tokens[5]), dms2dd(tokens[7], tokens[8], tokens[9], tokens[10]) );
+        //var latlong = LatLong( dms2dd(tokens[2], tokens[3], tokens[4], tokens[5]), dms2dd(tokens[7], tokens[8], tokens[9], tokens[10]) );
+        var latlong = LatLong( dms2dd(tokens.slice(2)), dms2dd(tokens.slice(7)) );
         return latlong.toString();
     }
     return "";
