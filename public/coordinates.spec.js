@@ -6,12 +6,18 @@
  * To change this template use File | Settings | File Templates.
  */
 
+var dms_regexp_str = "((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([NS]?))[,\\s]+((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([EW]?))";
+
 function looksLikeDegreesMinutesSeconds(input) {
-    return parseDegreesMinutesSeconds(input) !== null;
+    return extractDegreesMinutesSeconds(input) !== null;
+}
+
+function extractDegreesMinutesSeconds(input) {
+    return input.match(new RegExp(dms_regexp_str, "g"));
 }
 
 function parseDegreesMinutesSeconds(input) {
-    return input.match(/((-?\d+)\s(\d+)\s(\d+\.?\d?)([NS]?))[,\s]+((-?\d+)\s(\d+)\s(\d+\.?\d?)([EW]?))/);
+    return input.match(new RegExp(dms_regexp_str));
 }
 
 function dms2dd(tokens) {
@@ -41,10 +47,15 @@ function LatLong(lat, lng) {
 
 function convert(input) {
     if (looksLikeDegreesMinutesSeconds(input)) {
-        var tokens = parseDegreesMinutesSeconds(input);
-        //var latlong = LatLong( dms2dd(tokens[2], tokens[3], tokens[4], tokens[5]), dms2dd(tokens[7], tokens[8], tokens[9], tokens[10]) );
-        var latlong = LatLong( dms2dd(tokens.slice(2)), dms2dd(tokens.slice(7)) );
-        return latlong.toString();
+        var matched_sets = extractDegreesMinutesSeconds(input);
+        var output_string = "";
+        for (var i = 0; i < matched_sets.length; i++) {
+            if (i > 0) output_string += "\n";
+            var tokens = parseDegreesMinutesSeconds(input);
+            var latlong = LatLong( dms2dd(tokens.slice(2)), dms2dd(tokens.slice(7)) );
+            output_string += latlong.toString();
+        }
+        return output_string;
     }
     return "";
 }
@@ -75,6 +86,10 @@ describe("Converting coordinates to Decimal Degrees",function(){
             itIsAnExpectedConversion("0 0 0.0N, 0 0 0.0E", "0.0, 0.0");
             itIsAnExpectedConversion("0 0 0.0S, 0 0 0.0W", "0.0, 0.0");
             itIsAnExpectedConversion("0 0 0.0, 0 0 0.0", "0.0, 0.0");
+        });
+
+        describe("multiple entries",function(){
+            itIsAnExpectedConversion("0 0 0.0 0 0 0.0\n0 0 0.0 0 0 0.0","0.0, 0.0\n0.0, 0.0");
         });
 
         describe("Handling each of Degrees, Minutes and Decimal Seconds",function(){
