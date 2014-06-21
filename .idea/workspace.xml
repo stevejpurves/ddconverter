@@ -54,7 +54,7 @@
       <file leaf-file-name="coordinates.spec.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/coordinates.spec.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="69" selection-start="1789" selection-end="1789" vertical-scroll-proportion="0.5483871">
+            <state line="8" column="123" selection-start="281" selection-end="281" vertical-scroll-proportion="0.09970675">
               <folding>
                 <element signature="e#0#156#0" expanded="false" />
               </folding>
@@ -400,7 +400,14 @@
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/public/coordinates.spec.js</url>
+          <line>53</line>
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/public/app.js">
@@ -506,7 +513,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/coordinates.spec.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="69" selection-start="1789" selection-end="1789" vertical-scroll-proportion="0.5483871">
+        <state line="8" column="123" selection-start="281" selection-end="281" vertical-scroll-proportion="0.09970675">
           <folding>
             <element signature="e#0#156#0" expanded="false" />
           </folding>
