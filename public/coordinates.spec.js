@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var dms_regexp_str = "((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([NS]?))[,\\s]+((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([EW]?))";
+var dms_regexp_str = "((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([NS]?))[,\\s]+((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([EW]?))([,\\s]?)";
 
 function looksLikeDegreesMinutesSeconds(input) {
     return extractDegreesMinutesSeconds(input) !== null;
@@ -52,8 +52,8 @@ function convert(input) {
         for (var i = 0; i < matched_sets.length; i++) {
             var tokens = parseDegreesMinutesSeconds(matched_sets[i]);
             var latlong = LatLong( dms2dd(tokens.slice(2)), dms2dd(tokens.slice(7)) );
-            if (i > 0) output_string += "\n";
             output_string += latlong.toString();
+            if (matched_sets.length > 0) output_string += tokens[11];
         }
         return output_string;
     }
