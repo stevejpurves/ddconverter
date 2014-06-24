@@ -41,7 +41,7 @@ function LatLong(lat, lng) {
     var the_lat = lat;
     var the_long = lng;
     return { toString: function(){
-        return the_lat.toString() + ", " + the_long.toString();
+        return the_lat.toString() + " " + the_long.toString();
     }};
 }
 
@@ -80,45 +80,45 @@ describe("Converting coordinates to Decimal Degrees",function(){
 
     describe("Degrees Minutes Seconds", function(){
         describe("general formatting",function(){
-            itIsAnExpectedConversion("0 0 0.0N 0 0 0.0E", "0.0, 0.0");
-            itIsAnExpectedConversion("0 0 0.0S 0 0 0.0W", "0.0, 0.0");
-            itIsAnExpectedConversion("0 0 0.0 0 0 0.0", "0.0, 0.0");
-            itIsAnExpectedConversion("0 0 0.0N, 0 0 0.0E", "0.0, 0.0");
-            itIsAnExpectedConversion("0 0 0.0S, 0 0 0.0W", "0.0, 0.0");
-            itIsAnExpectedConversion("0 0 0.0, 0 0 0.0", "0.0, 0.0");
+            itIsAnExpectedConversion("0 0 0.0N 0 0 0.0E", "0.0 0.0");
+            itIsAnExpectedConversion("0 0 0.0S 0 0 0.0W", "0.0 0.0");
+            itIsAnExpectedConversion("0 0 0.0 0 0 0.0", "0.0 0.0");
+            itIsAnExpectedConversion("0 0 0.0N, 0 0 0.0E", "0.0 0.0");
+            itIsAnExpectedConversion("0 0 0.0S, 0 0 0.0W", "0.0 0.0");
+            itIsAnExpectedConversion("0 0 0.0, 0 0 0.0", "0.0 0.0");
         });
 
         describe("multiple entries",function(){
-            itIsAnExpectedConversion("1 1 1.1 2 2 2.2\n3 3 3.3 4 4 4.4","1.01972, 2.03944\n3.05917, 4.07889");
-            itIsAnExpectedConversion("1 1 1.1 2 2 2.2 3 3 3.3 4 4 4.4","1.01972, 2.03944 3.05917, 4.07889");
-            itIsAnExpectedConversion("1 1 1.1 2 2 2.2, 3 3 3.3 4 4 4.4","1.01972, 2.03944, 3.05917, 4.07889");
+            itIsAnExpectedConversion("1 1 1.1 2 2 2.2\n3 3 3.3 4 4 4.4","1.01972 2.03944\n3.05917 4.07889");
+            itIsAnExpectedConversion("1 1 1.1 2 2 2.2 3 3 3.3 4 4 4.4","1.01972 2.03944 3.05917 4.07889");
+            itIsAnExpectedConversion("1 1 1.1 2 2 2.2, 3 3 3.3 4 4 4.4","1.01972 2.03944, 3.05917 4.07889");
         });
 
         describe("Handling each of Degrees, Minutes and Decimal Seconds",function(){
-            itIsAnExpectedConversion("1 0 0.0N 0 0 0.0E", "1.0, 0.0");
-            itIsAnExpectedConversion("1 0 0.0N 1 0 0.0E", "1.0, 1.0");
-            itIsAnExpectedConversion("1 1 0.0N 0 0 0.0E", "1.01667, 0.0");
-            itIsAnExpectedConversion("1 0 1.0N 0 0 0.0E", "1.00278, 0.0");
-            itIsAnExpectedConversion("1 1 1.0N 0 0 0.0E", "1.01944, 0.0");
-            itIsAnExpectedConversion("0 0 0.0N 1 0 1.0E", "0.0, 1.00278");
-            itIsAnExpectedConversion("0 0 0.0N 1 1 0.0E", "0.0, 1.01667");
-            itIsAnExpectedConversion("0 0 0.1N 0 0 0.0E", "0.00028, 0.0");
+            itIsAnExpectedConversion("1 0 0.0N 0 0 0.0E", "1.0 0.0");
+            itIsAnExpectedConversion("1 0 0.0N 1 0 0.0E", "1.0 1.0");
+            itIsAnExpectedConversion("1 1 0.0N 0 0 0.0E", "1.01667 0.0");
+            itIsAnExpectedConversion("1 0 1.0N 0 0 0.0E", "1.00278 0.0");
+            itIsAnExpectedConversion("1 1 1.0N 0 0 0.0E", "1.01944 0.0");
+            itIsAnExpectedConversion("0 0 0.0N 1 0 1.0E", "0.0 1.00278");
+            itIsAnExpectedConversion("0 0 0.0N 1 1 0.0E", "0.0 1.01667");
+            itIsAnExpectedConversion("0 0 0.1N 0 0 0.0E", "0.00028 0.0");
         });
 
         describe("recognising W & S",function(){
-            itIsAnExpectedConversion("10 10 10.1S 10 10 10.1W", "-10.19472, -10.19472");
+            itIsAnExpectedConversion("10 10 10.1S 10 10 10.1W", "-10.19472 -10.19472");
         });
 
         describe("wrapping on the equator",function(){
-            itIsAnExpectedConversion("0 0 0.0N 181 0 0.0E", "0.0, -179.0");
-            itIsAnExpectedConversion("0 0 0.0N 181 0 0.0W", "0.0, 179.0");
+            itIsAnExpectedConversion("0 0 0.0N 181 0 0.0E", "0.0 -179.0");
+            itIsAnExpectedConversion("0 0 0.0N 181 0 0.0W", "0.0 179.0");
         });
 
         describe("the poles",function(){
-            itIsAnExpectedConversion("90 0 0.0N 180 0 0.0E", "90.0, 180.0");
-            itIsAnExpectedConversion("90 0 0.0N 360 0 0.0E", "90.0, 0.0");
-            itIsAnExpectedConversion("-90 0 0.0N 180 0 0.0E", "-90.0, 180.0");
-            itIsAnExpectedConversion("90 0 0.0N -180 0 0.0E", "90.0, -180.0");
+            itIsAnExpectedConversion("90 0 0.0N 180 0 0.0E", "90.0 180.0");
+            itIsAnExpectedConversion("90 0 0.0N 360 0 0.0E", "90.0 0.0");
+            itIsAnExpectedConversion("-90 0 0.0N 180 0 0.0E", "-90.0 180.0");
+            itIsAnExpectedConversion("90 0 0.0N -180 0 0.0E", "90.0 -180.0");
         });
     });
 });
