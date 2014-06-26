@@ -1,12 +1,4 @@
-/**
- * Created with JetBrains RubyMine.
- * User: Steve
- * Date: 21/05/14
- * Time: 22:37
- * To change this template use File | Settings | File Templates.
- */
-
-var dms_regexp_str = "((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([NS]?))[,\\s]+((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([EW]?))([,\\s]*)";
+var dms_regexp_str = "((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([NS]?))[,\\s]*((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([EW]?))([,\\s]*)";
 
 function looksLikeDegreesMinutesSeconds(input) {
     return extractDegreesMinutesSeconds(input) !== null;
@@ -83,14 +75,15 @@ describe("Converting coordinates to Decimal Degrees",function(){
             itIsAnExpectedConversion("0 0 0.0N 0 0 0.0E", "0.0 0.0");
             itIsAnExpectedConversion("0 0 0.0S 0 0 0.0W", "0.0 0.0");
             itIsAnExpectedConversion("0 0 0.0 0 0 0.0", "0.0 0.0");
-            itIsAnExpectedConversion("0 0 0.0N, 0 0 0.0E", "0.0 0.0");
-            itIsAnExpectedConversion("0 0 0.0S, 0 0 0.0W", "0.0 0.0");
-            itIsAnExpectedConversion("0 0 0.0, 0 0 0.0", "0.0 0.0");
+            itIsAnExpectedConversion("0 0 0.0N, 0 0 0.0E", "0.0, 0.0");
+            itIsAnExpectedConversion("0 0 0.0S, 0 0 0.0W", "0.0, 0.0");
+            itIsAnExpectedConversion("0 0 0.0, 0 0 0.0", "0.0, 0.0");
         });
 
         describe("multiple entries",function(){
             itIsAnExpectedConversion("1 1 1.1 2 2 2.2\n3 3 3.3 4 4 4.4","1.01972 2.03944\n3.05917 4.07889");
             itIsAnExpectedConversion("1 1 1.1 2 2 2.2 3 3 3.3 4 4 4.4","1.01972 2.03944 3.05917 4.07889");
+            itIsAnExpectedConversion("1 1 1.1 2 2 2.2,3 3 3.3 4 4 4.4","1.01972 2.03944,3.05917 4.07889");
             itIsAnExpectedConversion("1 1 1.1 2 2 2.2, 3 3 3.3 4 4 4.4","1.01972 2.03944, 3.05917 4.07889");
         });
 
