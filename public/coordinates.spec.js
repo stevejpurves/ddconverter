@@ -29,9 +29,10 @@ function DecimalDegrees(value) {
     return { toString: function() { return dd.toFixed(fix); } };
 }
 
-function LatLong(lat, lng) {
-    var the_lat = lat;
-    var the_long = lng;
+function LatLong(token) {
+    var the_lat = dms2dd(token.slice(2));
+    var the_separator = token.slice(6);
+    var the_long = dms2dd(token.slice(7));
     return { toString: function(){
         return the_lat.toString() + " " + the_long.toString();
     }};
@@ -43,7 +44,7 @@ function convert(input) {
         var output_string = "";
         for (var i = 0; i < matched_sets.length; i++) {
             var tokens = parseDegreesMinutesSeconds(matched_sets[i]);
-            var latlong = LatLong( dms2dd(tokens.slice(2)), dms2dd(tokens.slice(7)) );
+            var latlong = LatLong( tokens );
             output_string += latlong.toString();
             if (matched_sets.length > 0) output_string += tokens[11];
         }
