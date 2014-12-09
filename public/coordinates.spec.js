@@ -1,4 +1,4 @@
-var dms_regexp_str = "((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([NS]?))[,\\s]*((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([EW]?))([,\\s]*)";
+var dms_regexp_str = "((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([NS]?))([,\\s]*)((-?\\d+)\\s(\\d+)\\s(\\d+\\.?\\d?)([EW]?))([,\\s]*)";
 
 function looksLikeDegreesMinutesSeconds(input) {
     return extractDegreesMinutesSeconds(input) !== null;
@@ -31,10 +31,10 @@ function DecimalDegrees(value) {
 
 function LatLong(token) {
     var the_lat = dms2dd(token.slice(2));
-    var the_separator = token.slice(6);
-    var the_long = dms2dd(token.slice(7));
+    var the_separator = token[6];
+    var the_long = dms2dd(token.slice(8));
     return { toString: function(){
-        return the_lat.toString() + " " + the_long.toString();
+        return the_lat.toString() + the_separator + the_long.toString();
     }};
 }
 
@@ -46,7 +46,7 @@ function convert(input) {
             var tokens = parseDegreesMinutesSeconds(matched_sets[i]);
             var latlong = LatLong( tokens );
             output_string += latlong.toString();
-            if (matched_sets.length > 0) output_string += tokens[11];
+            if (matched_sets.length > 0) output_string += tokens[12];
         }
         return output_string;
     }
